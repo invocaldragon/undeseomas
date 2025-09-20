@@ -282,6 +282,51 @@
     .ball-6 { animation-delay: 1.5s, 1.5s; transform: rotate(257deg) translateX(75px) rotate(-257deg); }
     .ball-7 { animation-delay: 1.8s, 1.8s; transform: rotate(308.4deg) translateX(75px) rotate(-308.4deg); }
 
+      
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      background-color: #222;
+      border: 2px solid #00ff88;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-family: 'Courier New', monospace;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #00ffaa;
+      box-shadow: 0 0 10px #00ff88aa;
+    }      
+
+    .date-time-row .input-field {
+      flex: 0;
+    }    
+      
+    .date-time-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .input-inline {
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #222;
+      border: 2px solid #00ff88;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      transition: border-color 0.3s ease;
+      width: auto;
+      min-width: 120px;
+    }      
+      
     </style>
 </head>
 <body>
@@ -296,33 +341,25 @@
     <div class="legal-notice">
         <strong>Aviso Legal:</strong>
         <p>
-            • Esta plataforma es solo para entretenimiento.<br>
-            • El deseo solicitado es una intención personal dentro del ritual.<br>
-            • Las contribuciones son voluntarias y no reembolsables.<br>
-            • Participar implica aceptar estos términos.<br>
-            • Personajes y referencias son ilustrativos, no afiliados a marcas oficiales.<br>
-            © 2025 Invoca al dragón. Todos los derechos reservados. 🐉
+            Solo entretenimiento. Deseos simbólicos. Aportes voluntarios y no reembolsables. Personajes no afiliados. © 2025 Invoca al dragón. 🐉
         </p>
     </div>
-
-    <div id="popup-donation" class="popup-overlay">
-        <div class="popup-container" style="box-shadow: 0 0 20px gold;">
-            <h7 id="codigoSupremoDisplay"></h7>
-            <h6>¡ Humano, enviame tu ofrenda para ser digno de escuchar tu deseo !</h6>
-            <div class="donation-section">
-                <p class="donation-text" style="font-family: 'Poppins', sans-serif;">⛔ Si hozas continuar sin ofrendar,<br>tu deseo se desvanecerá para siempre.</p>
-                <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/QR.jpg" alt="QR de Yape" class="qr-yape">
-            </div>
-            <button id="openWishFormButton" class="button button--gold">Invocar a Shenlong</button>
-        </div>
-    </div>
-    
+ 
     <div id="popup-wish" class="popup-overlay">
         <div class="popup-container">
-            <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
+            <h6>¡ Tu ofrenda despertara al dragon eterno !</h6>  
+            <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/QR.jpg" alt="QR de Yape" class="qr-yape">
             <h4>Mortal, pídeme tu deseo<br>Tengo prisa...</h4>
-            <input type="text" id="userAliasInput" placeholder="Tu nombre (opcional)" aria-label="Escribe tu alias místico">
+            <input type="text" id="userAliasInput" placeholder="Tu correo" aria-label="Escribe tu alias místico">
             <textarea id="userWishInput" rows="2" placeholder="Tu deseo..." aria-label="Escribe tu deseo"></textarea>
+            
+            <p style="font-size: 14px; margin-top: 20px; margin-bottom: -10px;">Fecha y hora del Yape</p>
+          
+            <div class="date-time-row">
+              <input type="date" id="wishDate" class="input-field" aria-label="Fecha del deseo">
+              <input type="time" id="wishTime" class="input-field" aria-label="Hora del deseo">
+            </div>
+
             <button id="submitWishButton" class="button button--green">Pedir Deseo</button>   
       </div>
       
@@ -330,8 +367,8 @@
     
     <div id="popup-shenlong-reply" class="popup-overlay">
         <div class="popup-container">
-            <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/sheng1.png" alt="Invocación Shenlong" class="shenlong-static">
             <h3>Ese será un deseo muy fácil de realizar...</h3>
+            <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
             <p id="fullPhraseText" class="shenlong-phrase"></p>
             <p style="font-size: 14px; margin-top: -5px;">El dragón nunca olvida a quien invoca con el corazón firme</p>
             
@@ -366,26 +403,7 @@
   
 <script>
     // URL de la aplicación web que acabas de desplegar
-    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbySssFLsrL38PFEk0OYwZlzZd8VYID1pFlw2wuyegF6uyPuZKp68cD5meDun5SzKJdlrA/exec";
-
-    function generarCodigoSupremo() {
-        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const numeros = '0123456789';
-        let codigoLetras = '';
-        let codigoNumeros = '';
-
-        for (let i = 0; i < 3; i++) {
-            codigoLetras += letras.charAt(Math.floor(Math.random() * letras.length));
-        }
-
-        for (let i = 0; i < 3; i++) {
-            codigoNumeros += numeros.charAt(Math.floor(Math.random() * numeros.length));
-        }
-
-        return codigoLetras + codigoNumeros;
-    }
-
-    let codigoSupremoGenerado = generarCodigoSupremo();
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydI522JA1bKZPgeHuma1YEq4EQLVSR1UWoJ4Tm6nT004jYVVzgPm2v5NY0ndwbxYhF1w/exec";
 
     function openPopup(popupId) {
         document.getElementById(popupId).style.display = 'flex';
@@ -396,12 +414,6 @@
     }
 
     document.getElementById("donationButton").addEventListener('click', () => {
-        document.getElementById('codigoSupremoDisplay').textContent = `Código Supremo: ${codigoSupremoGenerado}`;
-        openPopup('popup-donation');
-    });
-
-    document.getElementById("openWishFormButton").addEventListener('click', () => {
-        closePopup('popup-donation');
         openPopup('popup-wish');
     });
     
@@ -411,17 +423,19 @@ document.getElementById("submitWishButton").addEventListener('click', async () =
 
     const nombre = document.getElementById('userAliasInput').value || 'Anónimo';
     const deseo = document.getElementById('userWishInput').value;
-    const codigo = codigoSupremoGenerado;
+    const fecha = document.getElementById('wishDate').value;
+    const hora = document.getElementById('wishTime').value;
 
-    if (deseo.trim() === '') {
-        alert('¡El dragón necesita saber tu deseo!');
-        return;
-    }
+    if (!nombre || !deseo || !fecha || !hora) {
+    alert('¡Todos los campos son obligatorios para invocar al dragón!');
+    return;
+  }
 
     const data = {
         nombre: nombre,
         deseo: deseo,
-        codigo: codigo
+        fecha: fecha,
+        hora: hora
     };
 
     const url = GOOGLE_APPS_SCRIPT_URL + "?" + new URLSearchParams(data).toString();
