@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MVP - Invocación Mística</title>
+
+    <meta property="og:title" content="Shenlong • Concedeme mi deseo" />
+    <meta property="og:description" content="Reúne las 7 esferas y hazlo realidad." />
+    <meta property="og:image" content="https://invocaldragon.github.io/Shenlong/esfera4.png" />
+    <meta property="og:url" content="https://invocaldragon.github.io/Shenlong" />
+    <meta property="og:type" content="website" />
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shenlong • Concedeme mi deseo">
+    <meta name="twitter:description" content="Reúne las 7 esferas y hazlo realidad.">
+    <meta name="twitter:image" content="https://invocaldragon.github.io/Shenlong/esfera4.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXXD7B7STE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QXXD7B7STE');
+    </script>
+
+    <style>
+        /* General Styles */
+        body, html {
+            font-family: 'Cinzel Decorative', cursive;
+            line-height: 1.6;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Base element styles */
+        h2 { color: #ffcc00; }
+        h3 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+
+        h4 { color: #00ff88; font-size: 18px; margin-bottom: 10px; }
+
+        h6 { color: #CDA74B; font-size: 18px; margin-bottom: 0px; margin-top: 10px;  }    
+
+        h7 { color: #0be803; font-size: 16px; margin-bottom: 5px; margin-top: 20px; }      
+        p { color: #fff; }
+
+        /* Form Elements */
+        input[type="text"], textarea {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            padding: 10px;
+            width: 90%;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #00ff88;
+            background-color: #0a0a0a;
+            color: #fff;
+        }
+        textarea::placeholder, input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Buttons */
+        .button {
+            border: none;
+            color: #fff;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s ease;
+            font-family: 'Cinzel Decorative', cursive;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            min-height: 45px;
+            width: 90%;
+            max-width: 300px;
+        }
+
+        .button--green {
+            background: linear-gradient(135deg, #00ff88, #006644);
+        }
+        .button--green:hover {
+            background: linear-gradient(135deg, #00ffcc, #004422);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .button--gold {
+            background: linear-gradient(135deg, #CDA74B, #826A34);
+            margin-top: 10px;
+        }
+        .button--gold:hover {
+            background: linear-gradient(135deg, #826A34, #CDA74B);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px gold;
+        }
+        
+        /* Layout Containers */
+        .container {
+            text-align: center;
+            max-width: 100%;
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .legal-notice {
+            font-size: 10px;
+            color: #aaa;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        /* Popup Overlays */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-container {
+            animation: fadeInMagic 0.8s ease-out;
+            box-shadow: 0 0 20px #00ff88aa;
+            background: #111;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes fadeInMagic {
+            0% {opacity: 0; transform: scale(0.9); filter: blur(5px);}
+            100% {opacity: 1; transform: scale(1); filter: blur(0);}
+        }
+
+        /* Specific Image Styles & Animations */
+        .qr-yape {
+            max-width: 250px;
+            margin: 20px auto 30px auto;
+            display: block;
+            border-radius: 20px;
+            animation: resplandor-yape 3s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px #CDA74B) drop-shadow(0 0 20px #826A34);
+        }
+        @keyframes resplandor-yape {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px #CDA74B) drop-shadow(0 0 20px #826A34);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px #826A34) drop-shadow(0 0 35px #CDA74B);
+            }
+        }
+        
+        .shenlong-static {
+            display: block;
+            max-width: 80%;
+            height: auto;
+            margin: 30px auto 0 auto;
+            animation: aparecer 2s ease-out forwards, resplandor-mistico 3s infinite ease-in-out, flotar 4s ease-in-out infinite;
+        }
+        @keyframes resplandor-mistico {
+            0%, 100% {
+                filter: drop-shadow(0 0 15px #00ffcc) drop-shadow(0 0 25px #00ffcc);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px #00ffcc) drop-shadow(0 0 40px #00ffcc);
+            }
+        }
+
+        .shenlong-gif {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #00ffcc;
+            animation: aparecer 2s ease-out forwards, resplandor-mistico 1s infinite ease-in-out;
+        }
+
+        /* Other Specific Styles */
+        .title--mystic {
+            color: #0be803;
+            text-align: center;
+        }
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .shenlong-phrase {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        .donation-text {
+            font-size: 13px;
+        }
+
+        /* Keyframes */
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .dragon-ball-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .dragon-ball {
+            width: 40px;
+            margin: 0 2px;
+            animation: spin 20s linear infinite;
+            transform-origin: center center;
+        }
+        @media (max-width: 600px) {
+            .dragon-ball {
+                width: 30px;
+            }
+        }
+      
+      
+      /* ... Tus estilos existentes ... */
+
+    #dragonBallCircle {
+        position: relative;
+        width: 50px;
+        height: 50px;
+    }
+
+    .spinning-ball {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        opacity: 0; /* Por defecto, las esferas están ocultas */
+        animation: orbit 5s linear infinite forwards, fadeIn 0.5s ease-in forwards;
+        transform-origin: 75px 75px;
+    }
+
+    @keyframes orbit {
+        from { transform: rotate(0deg) translateX(75px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(75px) rotate(-360deg); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Posicionamiento y retraso de cada esfera */
+    .ball-1 { animation-delay: 0s, 0s; transform: rotate(0deg) translateX(75px) rotate(0deg); }
+    .ball-2 { animation-delay: 0.3s, 0.3s; transform: rotate(51.4deg) translateX(75px) rotate(-51.4deg); }
+    .ball-3 { animation-delay: 0.6s, 0.6s; transform: rotate(102.8deg) translateX(75px) rotate(-102.8deg); }
+    .ball-4 { animation-delay: 0.9s, 0.9s; transform: rotate(154.2deg) translateX(75px) rotate(-154.2deg); }
+    .ball-5 { animation-delay: 1.2s, 1.2s; transform: rotate(205.6deg) translateX(75px) rotate(-205.6deg); }
+    .ball-6 { animation-delay: 1.5s, 1.5s; transform: rotate(257deg) translateX(75px) rotate(-257deg); }
+    .ball-7 { animation-delay: 1.8s, 1.8s; transform: rotate(308.4deg) translateX(75px) rotate(-308.4deg); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="title--mystic">Tu aporte voluntario</h2>
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/sheng1.png" alt="Invocación Shenlong" class="shenlong-static">
+        <h2 class="title--mystic">Cumplirá tu deseo</h2>
+        <button id="donationButton" class="button button--green">Continuar</button>
+    </div>
+
+    <div class="legal-notice">
+        <strong>Aviso Legal:</strong>
+        <p>
+            • Esta plataforma es solo para entretenimiento.<br>
+            • El deseo solicitado es una intención personal dentro del ritual.<br>
+            • Las contribuciones son voluntarias y no reembolsables.<br>
+            • Participar implica aceptar estos términos.<br>
+            • Personajes y referencias son ilustrativos, no afiliados a marcas oficiales.<br>
+            © 2025 Invoca al dragón. Todos los derechos reservados. 🐉
+        </p>
+    </div>
+
+    <div id="popup-donation" class="popup-overlay">
+        <div class="popup-container" style="box-shadow: 0 0 20px gold;">
+            <h7 id="codigoSupremoDisplay"></h7>
+            <h6>¡ Humano, enviame tu ofrenda para ser digno de escuchar tu deseo !</h6>
+            <div class="donation-section">
+                <p class="donation-text" style="font-family: 'Poppins', sans-serif;">⛔ Si hozas continuar sin ofrendar,<br>tu deseo se desvanecerá para siempre.</p>
+                <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/QR.jpg" alt="QR de Yape" class="qr-yape">
+            </div>
+            <button id="openWishFormButton" class="button button--gold">Invocar a Shenlong</button>
+        </div>
+    </div>
+    
+    <div id="popup-wish" class="popup-overlay">
+        <div class="popup-container">
+            <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
+            <h4>Mortal, pídeme tu deseo<br>Tengo prisa...</h4>
+            <input type="text" id="userAliasInput" placeholder="Tu nombre (opcional)" aria-label="Escribe tu alias místico">
+            <textarea id="userWishInput" rows="2" placeholder="Tu deseo..." aria-label="Escribe tu deseo"></textarea>
+            <button id="submitWishButton" class="button button--green">Pedir Deseo</button>   
+      </div>
+      
+    </div>
+    
+    <div id="popup-shenlong-reply" class="popup-overlay">
+        <div class="popup-container">
+            <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/sheng1.png" alt="Invocación Shenlong" class="shenlong-static">
+            <h3>Ese será un deseo muy fácil de realizar...</h3>
+            <p id="fullPhraseText" class="shenlong-phrase"></p>
+            <p style="font-size: 14px; margin-top: -5px;">El dragón nunca olvida a quien invoca con el corazón firme</p>
+            
+            <div class="dragon-ball-divider">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera1.png" class="dragon-ball" alt="Esfera 1">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera2.png" class="dragon-ball" alt="Esfera 2">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera3.png" class="dragon-ball" alt="Esfera 3">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera4.png" class="dragon-ball" alt="Esfera 4">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera5.png" class="dragon-ball" alt="Esfera 5">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera6.png" class="dragon-ball" alt="Esfera 6">
+              <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera7.png" class="dragon-ball" alt="Esfera 7">
+            </div>
+            
+          <button id="Compartir" class="button button--green">Compartir</button>
+        </div>
+    </div>
+
+<div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 9998;"></div>  
+  
+<div id="loadingIndicator" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+    <div id="dragonBallCircle">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera1.png" class="spinning-ball ball-1" alt="Esfera 1">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera2.png" class="spinning-ball ball-2" alt="Esfera 2">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera3.png" class="spinning-ball ball-3" alt="Esfera 3">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera4.png" class="spinning-ball ball-4" alt="Esfera 4">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera5.png" class="spinning-ball ball-5" alt="Esfera 5">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera6.png" class="spinning-ball ball-6" alt="Esfera 6">
+        <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera7.png" class="spinning-ball ball-7" alt="Esfera 7">
+    </div>
+</div>
+  
+  
+<script>
+    // URL de la aplicación web que acabas de desplegar
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbySssFLsrL38PFEk0OYwZlzZd8VYID1pFlw2wuyegF6uyPuZKp68cD5meDun5SzKJdlrA/exec";
+
+    function generarCodigoSupremo() {
+        const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numeros = '0123456789';
+        let codigoLetras = '';
+        let codigoNumeros = '';
+
+        for (let i = 0; i < 3; i++) {
+            codigoLetras += letras.charAt(Math.floor(Math.random() * letras.length));
+        }
+
+        for (let i = 0; i < 3; i++) {
+            codigoNumeros += numeros.charAt(Math.floor(Math.random() * numeros.length));
+        }
+
+        return codigoLetras + codigoNumeros;
+    }
+
+    let codigoSupremoGenerado = generarCodigoSupremo();
+
+    function openPopup(popupId) {
+        document.getElementById(popupId).style.display = 'flex';
+    }
+
+    function closePopup(popupId) {
+        document.getElementById(popupId).style.display = 'none';
+    }
+
+    document.getElementById("donationButton").addEventListener('click', () => {
+        document.getElementById('codigoSupremoDisplay').textContent = `Código Supremo: ${codigoSupremoGenerado}`;
+        openPopup('popup-donation');
+    });
+
+    document.getElementById("openWishFormButton").addEventListener('click', () => {
+        closePopup('popup-donation');
+        openPopup('popup-wish');
+    });
+    
+document.getElementById("submitWishButton").addEventListener('click', async () => {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+
+    const nombre = document.getElementById('userAliasInput').value || 'Anónimo';
+    const deseo = document.getElementById('userWishInput').value;
+    const codigo = codigoSupremoGenerado;
+
+    if (deseo.trim() === '') {
+        alert('¡El dragón necesita saber tu deseo!');
+        return;
+    }
+
+    const data = {
+        nombre: nombre,
+        deseo: deseo,
+        codigo: codigo
+    };
+
+    const url = GOOGLE_APPS_SCRIPT_URL + "?" + new URLSearchParams(data).toString();
+
+    // 1. Mostrar el overlay y el indicador de carga
+    loadingOverlay.style.display = 'block';
+    loadingIndicator.style.display = 'block';
+
+    try {
+        await fetch(url);
+        
+        // 2. Ocultar el overlay y el indicador si la solicitud fue exitosa
+        loadingOverlay.style.display = 'none';
+        loadingIndicator.style.display = 'none';
+
+        closePopup('popup-wish');
+        openPopup('popup-shenlong-reply');
+        console.log('Datos enviados correctamente.');
+
+    } catch (error) {
+        // 3. Ocultar el overlay y el indicador si hubo un error
+        loadingOverlay.style.display = 'none';
+        loadingIndicator.style.display = 'none';
+
+        alert('¡Oh no! Algo salió mal y el dragón no escuchó tu deseo.');
+        console.error('Error al enviar los datos:', error);
+    }
+});
+    
+    document.getElementById("Compartir").addEventListener('click', async () => {
+        const shareData = {
+            title: "¡He invocado a Shenlong!",
+            text: "He pedido mi deseo al dragón eterno. ¿Te atreves tú también?",
+            url: window.location.href
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+                console.log("Compartido con éxito");
+            } catch (err) {
+                console.warn("El usuario canceló el compartir o hubo un error:", err);
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(shareData.url);
+                alert("Tu enlace se copió al portapapeles. ¡Compártelo con tus amigos!");
+            } catch (err) {
+                alert("No se pudo copiar automáticamente. Copia el enlace manualmente: " + shareData.url);
+            }
+        }
+    });
+</script>
+</body>
+</html>
+
