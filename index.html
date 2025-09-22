@@ -332,10 +332,16 @@
 <body>
 
     <div class="container">
-        <h2 class="title--mystic">Tu aporte voluntario</h2>
-        <img src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/gifshenlong.gif" alt="Invocación Shenlong">
-        <h2 class="title--mystic">Cumplirá tu deseo</h2>
-        <button id="donationButton" class="button button--green">Continuar</button>
+      <!-- GIF clicable -->
+      <img id="shenlongGif"
+           src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/gifshenlong.gif"
+           alt="Invocación Shenlong"
+           style="cursor: pointer; display: block; margin: 0 auto;">
+
+      <!-- Botón oculto -->
+      <button id="donationButton" class="button button--green" style="display: none;">
+        Continuar
+      </button>
     </div>
 
     <div class="legal-notice">
@@ -405,6 +411,14 @@
     // URL de la aplicación web que acabas de desplegar
     const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydI522JA1bKZPgeHuma1YEq4EQLVSR1UWoJ4Tm6nT004jYVVzgPm2v5NY0ndwbxYhF1w/exec";
 
+    const gif = document.getElementById('shenlongGif');
+    const button = document.getElementById('donationButton');  
+
+    // Hacer que el GIF actúe como el botón
+    gif.addEventListener('click', () => {
+      button.click();
+    });
+  
     function openPopup(popupId) {
         document.getElementById(popupId).style.display = 'flex';
     }
@@ -413,8 +427,9 @@
         document.getElementById(popupId).style.display = 'none';
     }
 
-    document.getElementById("donationButton").addEventListener('click', () => {
-        openPopup('popup-wish');
+    // Acción original del botón "Continuar"
+    button.addEventListener('click', () => {
+      openPopup('popup-wish');
     });
     
 document.getElementById("submitWishButton").addEventListener('click', async () => {
@@ -491,4 +506,3 @@ document.getElementById("submitWishButton").addEventListener('click', async () =
 </script>
 </body>
 </html>
-
