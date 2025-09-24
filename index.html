@@ -526,15 +526,6 @@ input:checked + .slider:before {
   const audio = document.getElementById('shenlongAudio');
 const audioSwitch = document.getElementById('audioSwitch');
 
-// Permitir autoplay en silencio y activar sonido al primer toque
-document.addEventListener('click', () => {
-  if (!audioSwitch.checked) {
-    audio.muted = false;
-    audio.play();
-    audioSwitch.checked = true; // Marca el switch como ON automáticamente
-  }
-}, { once: true });
-
 // Controlar ON/OFF con el interruptor
 audioSwitch.addEventListener('change', () => {
   if (audioSwitch.checked) {
