@@ -341,32 +341,35 @@
       border-radius: 12px; /* Opcional: esquinas suaves */
     }
 
-.container {
+
+.audio-container {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Centra todos los elementos horizontalmente */
-  gap: 15px;           /* Espacio entre GIF, switch y botón */
-  margin-top: 20px;
-  text-align: center;  /* Asegura centrado del contenido */
+  align-items: center;       /* Alinea verticalmente el texto y el switch */
+  justify-content: center;   /* Centra todo el grupo bajo el GIF */
+  margin-top: 12px;          /* Espacio debajo del GIF */
+  gap: 10px;                 /* Espacio entre el texto y el switch */
 }
 
-.audio-toggle {
-  text-align: center; /* Fuerza centrado del switch */
-  width: 100%;
+.audio-text {
+  font-size: 16px;
+  color: #ffffff;            /* Cambia el color según tu diseño */
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Estilo tipo iPhone para el switch */
+/* Estilos del switch (mantén los que ya usas) */
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 50px;
+  height: 28px;
 }
+
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -375,30 +378,29 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
+  transition: .4s;
+  border-radius: 28px;
 }
+
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
   background-color: white;
-  transition: 0.4s;
+  transition: .4s;
   border-radius: 50%;
 }
+
 input:checked + .slider {
-  background-color: #4cd964; /* Verde tipo iPhone */
-}
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-.slider.round {
-  border-radius: 34px;
+  background-color: #4CAF50;
 }
 
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
 
       
     </style>
@@ -406,7 +408,22 @@ input:checked + .slider:before {
 <body>
 
   
+  <!-- AUDIO -->
+<audio id="shenlongAudio" autoplay loop muted>
+  <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/quienmehallamado.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio.
+</audio>
 
+<!-- CONTENEDOR DE TEXTO + INTERRUPTOR -->
+<div class="audio-container">
+  <span class="audio-text">🎧 Activa tu audio 🔊</span>
+  <div class="audio-toggle">
+    <label class="switch">
+      <input type="checkbox" id="audioSwitch">
+      <span class="slider round"></span>
+    </label>
+  </div>
+</div>
   
     <div class="machine-container">
       <!-- GIF clicable -->
@@ -419,21 +436,12 @@ input:checked + .slider:before {
       <button id="donationButton" class="button button--green" style="display: none;">
         Continuar
       </button>
+      
+      
+      
     </div>
 
-  <!-- AUDIO -->
-<audio id="shenlongAudio" autoplay loop muted>
-  <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/quienmehallamado.mp3" type="audio/mpeg">
-  Tu navegador no soporta audio.
-</audio>
-
-<!-- INTERRUPTOR ON/OFF -->
-<div class="audio-toggle">
-  <label class="switch">
-    <input type="checkbox" id="audioSwitch">
-    <span class="slider round"></span>
-  </label>
-</div>  
+ 
   
     <div class="legal-notice">
         <strong>Aviso Legal:</strong>
@@ -451,6 +459,10 @@ input:checked + .slider:before {
   <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/saldeahishenlong.mp3" type="audio/mpeg">
 </audio>
   
+<!-- Tercer audio -->
+<audio id="finalAudio">
+  <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/deseofacil.mp3" type="audio/mpeg">
+</audio>
   
   
     <div id="popup-wish" class="popup-overlay">
@@ -542,6 +554,7 @@ audioSwitch.addEventListener('change', () => {
     const button = document.getElementById('donationButton');
     const audio1 = document.getElementById('shenlongAudio');
     const audio2 = document.getElementById('popupAudio');
+    const audio3 = document.getElementById('finalAudio');
 
     // Hacer que el GIF actúe como el botón
     gif.addEventListener('click', () => {
@@ -599,6 +612,16 @@ document.getElementById("submitWishButton").addEventListener('click', async () =
         loadingIndicator.style.display = 'none';
 
         closePopup('popup-wish');
+      
+      
+        // 🔇 Pausar y reiniciar audio2
+        audio2.pause();
+        audio2.currentTime = 0;
+
+        // 🔊 Reproducir audio3
+        audio3.currentTime = 0;
+        audio3.play().catch(err => console.warn('Autoplay bloqueado:', err));
+      
         openPopup('popup-shenlong-reply');
         console.log('Datos enviados correctamente.');
 
