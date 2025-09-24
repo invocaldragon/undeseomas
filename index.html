@@ -340,11 +340,74 @@
       object-fit: contain; /* Ajusta sin recortar */
       border-radius: 12px; /* Opcional: esquinas suaves */
     }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra todos los elementos horizontalmente */
+  gap: 15px;           /* Espacio entre GIF, switch y botón */
+  margin-top: 20px;
+  text-align: center;  /* Asegura centrado del contenido */
+}
+
+.audio-toggle {
+  text-align: center; /* Fuerza centrado del switch */
+  width: 100%;
+}
+
+/* Estilo tipo iPhone para el switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #4cd964; /* Verde tipo iPhone */
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+
+
       
     </style>
-</head>
+  </head>
 <body>
 
+  
+
+  
     <div class="machine-container">
       <!-- GIF clicable -->
       <img id="shenlongGif"
@@ -358,6 +421,20 @@
       </button>
     </div>
 
+  <!-- AUDIO -->
+<audio id="shenlongAudio" autoplay loop muted>
+  <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/quienmehallamado.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio.
+</audio>
+
+<!-- INTERRUPTOR ON/OFF -->
+<div class="audio-toggle">
+  <label class="switch">
+    <input type="checkbox" id="audioSwitch">
+    <span class="slider round"></span>
+  </label>
+</div>  
+  
     <div class="legal-notice">
         <strong>Aviso Legal:</strong>
         <p>
@@ -365,6 +442,17 @@
         </p>
     </div>
  
+  <!-- Audios -->
+<audio id="shenlongAudio" autoplay loop muted>
+  <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/quienmehallamado.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="popupAudio">
+  <source src="https://raw.githubusercontent.com/invocaldragon/undeseomas/main/saldeahishenlong.mp3" type="audio/mpeg">
+</audio>
+  
+  
+  
     <div id="popup-wish" class="popup-overlay">
         <div class="popup-container">
             <h6>¡ Tu ofrenda despertara al dragon eterno !</h6>  
@@ -422,14 +510,44 @@
   
   
 <script>
+  
+  const audio = document.getElementById('shenlongAudio');
+const audioSwitch = document.getElementById('audioSwitch');
+
+// Permitir autoplay en silencio y activar sonido al primer toque
+document.addEventListener('click', () => {
+  if (!audioSwitch.checked) {
+    audio.muted = false;
+    audio.play();
+    audioSwitch.checked = true; // Marca el switch como ON automáticamente
+  }
+}, { once: true });
+
+// Controlar ON/OFF con el interruptor
+audioSwitch.addEventListener('change', () => {
+  if (audioSwitch.checked) {
+    audio.muted = false;
+    audio.play();
+  } else {
+    audio.pause();
+  }
+});
+  
+  
+  
     // URL de la aplicación web que acabas de desplegar
     const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydI522JA1bKZPgeHuma1YEq4EQLVSR1UWoJ4Tm6nT004jYVVzgPm2v5NY0ndwbxYhF1w/exec";
 
     const gif = document.getElementById('shenlongGif');
-    const button = document.getElementById('donationButton');  
+    const button = document.getElementById('donationButton');
+    const audio1 = document.getElementById('shenlongAudio');
+    const audio2 = document.getElementById('popupAudio');
 
     // Hacer que el GIF actúe como el botón
     gif.addEventListener('click', () => {
+      audio1.pause();
+      audio1.currentTime = 0;
+      audio2.play().catch(err => console.warn('Autoplay bloqueado:', err));
       button.click();
     });
   
