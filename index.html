@@ -467,7 +467,7 @@ input:checked + .slider:before {
   
     <div id="popup-wish" class="popup-overlay">
         <div class="popup-container">
-            <h6>¡ Tu ofrenda despertara al dragon eterno !</h6>  
+            <h6>⚠️ registra tu Yape y el dragón concederá tu deseo ⚠️</h6>  
             <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/QR.jpg" alt="QR de Yape" class="qr-yape">
             
             <p style="font-size: 14px; margin-top: 20px; margin-bottom: -10px;">Fecha y hora del Yape</p>
@@ -489,8 +489,12 @@ input:checked + .slider:before {
         <div class="popup-container">
             <h3>Ese será un deseo muy fácil de realizar...</h3>
             <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/Invocacion2.gif" alt="Invocación Shenlong" class="shenlong-gif">
-            <p id="fullPhraseText" class="shenlong-phrase"></p>
-            <p style="font-size: 14px; margin-top: -5px;">El dragón nunca olvida a quien invoca con el corazón firme</p>
+            
+          <p id="fullPhraseText" class="shenlong-phrase"></p>
+          
+              <!-- Contenedor para mostrar el deseo -->
+            <p id="mostrarDeseo" style="font-size:20px; font-style:italic; margin-top:20px;"></p>
+          
             
             <div class="dragon-ball-divider">
               <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera1.png" class="dragon-ball" alt="Esfera 1">
@@ -502,6 +506,8 @@ input:checked + .slider:before {
               <img src="https://raw.githubusercontent.com/invocaldragon/shenlong/PRUEBAS/esfera7.png" class="dragon-ball" alt="Esfera 7">
             </div>
             
+            <p style="font-size: 13px; margin-top: -5px; font-family: 'Poppins', sans-serif;">⚡ Tu aporte por Yape ayuda a que el dragón siga concediendo deseos. 🐉</p>
+          
           <button id="Compartir" class="button button--green">Compartir</button>
         </div>
     </div>
@@ -589,6 +595,11 @@ document.getElementById("submitWishButton").addEventListener('click', async () =
         hora: hora
     };
 
+      // Guarda el deseo en el contenedor del segundo popup
+    const mostrarDeseo = document.getElementById('mostrarDeseo');
+    mostrarDeseo.textContent = `✨ "${deseo}" ✨`;
+  
+  
     const url = GOOGLE_APPS_SCRIPT_URL + "?" + new URLSearchParams(data).toString();
 
     // 1. Mostrar el overlay y el indicador de carga
